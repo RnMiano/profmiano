@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Prof. Miano Njogu | Expert Academic Help</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:       #080c14;
+  --bg2:      #0c1220;
+  --bg3:      #111826;
+  --surface:  #141d2e;
+  --border:   rgba(56,189,248,0.12);
+  --border2:  rgba(56,189,248,0.22);
+  --teal:     #38bdf8;
+  --teal-dim: #1e7fb8;
+  --cyan:     #06d6d6;
+  --lime:     #a3e635;
+  --amber:    #fbbf24;
+  --rose:     #fb7185;
+  --white:    #f0f6ff;
+  --muted:    #6b8094;
+  --muted2:   #3d5066;
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+/* custom scrollbar */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--teal-dim);border-radius:2px;}
+
+body{
+  font-family:'Crimson Pro',serif;
+  background:var(--bg);
+  color:var(--white);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ── CUSTOM CURSOR ── */
+#cursor{
+  position:fixed;width:10px;height:10px;
+  background:var(--teal);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s;
+  mix-blend-mode:screen;
+}
+#cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1.5px solid rgba(56,189,248,0.4);
+  border-radius:50%;pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:all .12s ease;
+}
+body:hover #cursor{width:10px;height:10px;}
+
+/* ── GRID BACKGROUND ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;z-index:0;
+}
+
+/* ── GLOW ORBS ── */
+.orb{
+  position:fixed;border-radius:50%;
+  pointer-events:none;filter:blur(80px);opacity:0.12;z-index:0;
+}
+.orb1{width:500px;height:500px;background:var(--teal);top:-150px;right:-100px;}
+.orb2{width:400px;height:400px;background:var(--cyan);bottom:-100px;left:-100px;}
+.orb3{width:300px;height:300px;background:var(--amber);top:50%;left:50%;transform:translate(-50%,-50%);}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 5rem;
+  background:rgba(8,12,20,0.75);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Syne',sans-serif;
+  font-weight:800;font-size:1rem;
+  letter-spacing:0.06em;color:var(--white);
+  text-decoration:none;display:flex;align-items:center;gap:0.6rem;
+}
+.nav-logo-dot{
+  width:8px;height:8px;background:var(--teal);border-radius:50%;
+  animation:blink 2s infinite;
+}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+.nav-links a{
+  font-family:'Syne',sans-serif;
+  font-size:0.72rem;font-weight:600;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--teal);}
+.nav-cta-btn{
+  background:transparent;
+  border:1px solid var(--teal);
+  color:var(--teal) !important;
+  padding:0.5rem 1.3rem;
+  border-radius:2px;
+  transition:background .2s,color .2s !important;
+}
+.nav-cta-btn:hover{background:var(--teal);color:var(--bg) !important;}
+
+/* ── SECTIONS BASE ── */
+section{position:relative;z-index:1;}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:10rem 5rem 6rem;
+  position:relative;overflow:hidden;
+}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:2rem;
+  animation:fadeUp .8s ease both;
+}
+.hero-eyebrow-line{
+  width:40px;height:1px;background:var(--teal);
+}
+.hero-eyebrow-text{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.7rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--teal);
+}
+.hero-headline{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(3rem,7vw,7.5rem);
+  font-weight:800;
+  line-height:0.95;
+  letter-spacing:-0.03em;
+  margin-bottom:2rem;
+  animation:fadeUp .8s .1s ease both;
+}
+.hero-headline .line2{
+  color:transparent;
+  -webkit-text-stroke:1px var(--teal);
+}
+.hero-headline .line3{
+  font-family:'Crimson Pro',serif;
+  font-style:italic;
+  font-weight:300;
+  font-size:clamp(1.8rem,4vw,4.5rem);
+  color:var(--muted);
+  letter-spacing:0;
+  display:block;
+  margin-top:0.3rem;
+}
+.hero-body{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:end;
+  animation:fadeUp .8s .2s ease both;
+}
+.hero-desc{
+  font-size:1.15rem;color:var(--muted);
+  line-height:1.8;max-width:500px;
+}
+.hero-desc strong{color:var(--white);font-weight:600;}
+.hero-right-panel{display:flex;flex-direction:column;gap:1.5rem;}
+
+.hero-stat-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  border:1px solid var(--border2);
+  border-radius:4px;overflow:hidden;
+}
+.hero-stat{
+  background:var(--surface);
+  padding:1.5rem 1.2rem;
+  text-align:center;
+  position:relative;
+}
+.hero-stat::after{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.hero-stat:hover::after{opacity:1;}
+.stat-big{
+  font-family:'Syne',sans-serif;
+  font-size:2.2rem;font-weight:800;
+  color:var(--teal);line-height:1;
+}
+.stat-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.62rem;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--muted);
+  margin-top:0.4rem;
+}
+
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.htag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.65rem;padding:0.3rem 0.7rem;
+  border:1px solid var(--border2);
+  border-radius:20px;color:var(--muted);
+  letter-spacing:0.08em;
+}
+
+.hero-cta-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.5rem;}
+.btn-fill{
+  background:var(--teal);color:var(--bg);
+  padding:.85rem 2rem;font-family:'Syne',sans-serif;
+  font-size:.78rem;font-weight:700;letter-spacing:.08em;
+  text-decoration:none;border-radius:2px;
+  transition:background .2s,transform .2s;display:inline-block;
+}
+.btn-fill:hover{background:var(--cyan);transform:translateY(-2px);}
+.btn-ghost{
+  border:1px solid var(--border2);color:var(--white);
+  padding:.85rem 2rem;font-family:'Syne',sans-serif;
+  font-size:.78rem;font-weight:700;letter-spacing:.08em;
+  text-decoration:none;border-radius:2px;
+  transition:border-color .2s,color .2s;display:inline-block;
+}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal);}
+
+/* ── MARQUEE ── */
+.marquee-wrap{
+  overflow:hidden;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:1rem 0;
+  background:var(--bg2);
+  position:relative;z-index:1;
+}
+.marquee-track{
+  display:flex;gap:3rem;
+  animation:marquee 25s linear infinite;
+  width:max-content;
+}
+.marquee-item{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.7rem;letter-spacing:0.15em;
+  text-transform:uppercase;color:var(--muted2);
+  white-space:nowrap;display:flex;align-items:center;gap:0.8rem;
+}
+.marquee-item::after{content:'◆';color:var(--teal);font-size:0.4rem;}
+
+/* ── ABOUT STRIP ── */
+#about{
+  padding:7rem 5rem;
+  display:grid;grid-template-columns:1fr 2fr;gap:5rem;
+  align-items:start;
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.about-left{}
+.about-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem;
+}
+.about-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(1.6rem,3vw,2.6rem);
+  font-weight:800;line-height:1.1;
+  margin-bottom:2rem;
+}
+.about-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:4px;padding:1.5rem;
+  margin-top:2rem;
+}
+.about-card-title{
+  font-family:'Syne',sans-serif;
+  font-size:0.75rem;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:1rem;
+}
+.about-card p{font-size:0.9rem;color:var(--muted);line-height:1.7;}
+
+.about-right{}
+.about-para{
+  font-size:1.15rem;line-height:1.85;color:rgba(240,246,255,0.8);
+  margin-bottom:1.5rem;
+}
+.about-para em{font-style:italic;color:var(--white);}
+.about-para strong{color:var(--teal);font-weight:600;}
+
+.about-pillars{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+  margin-top:2.5rem;
+}
+.pillar{
+  border:1px solid var(--border);
+  border-radius:3px;padding:1.4rem 1rem;
+  text-align:center;
+  background:rgba(20,29,46,0.5);
+  transition:border-color .25s,transform .25s;
+}
+.pillar:hover{border-color:var(--teal);transform:translateY(-3px);}
+.pillar-icon{font-size:1.8rem;margin-bottom:0.7rem;}
+.pillar-name{
+  font-family:'Syne',sans-serif;
+  font-size:0.8rem;font-weight:700;
+  color:var(--white);
+}
+.pillar-sub{font-size:0.75rem;color:var(--muted);margin-top:0.3rem;}
+
+/* ── SERVICES ── */
+#services{padding:7rem 5rem;}
+.sec-header{
+  display:flex;justify-content:space-between;
+  align-items:flex-end;margin-bottom:4rem;
+  flex-wrap:wrap;gap:1.5rem;
+}
+.sec-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:0.8rem;
+}
+.sec-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(1.8rem,3.5vw,3.2rem);
+  font-weight:800;line-height:1.05;
+}
+.sec-sub{font-size:1rem;color:var(--muted);line-height:1.7;max-width:420px;}
+
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:4px;overflow:hidden;
+}
+.svc{
+  background:var(--bg);
+  padding:2.8rem 2.2rem;
+  position:relative;overflow:hidden;
+  transition:background .25s;
+}
+.svc::before{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--teal),var(--cyan));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s ease;
+}
+.svc:hover{background:var(--surface);}
+.svc:hover::before{transform:scaleX(1);}
+
+.svc-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.65rem;color:var(--muted2);
+  letter-spacing:0.15em;margin-bottom:1.5rem;
+}
+.svc-icon{font-size:2rem;margin-bottom:1.2rem;}
+.svc-name{
+  font-family:'Syne',sans-serif;
+  font-size:1.1rem;font-weight:700;
+  color:var(--white);margin-bottom:0.8rem;
+}
+.svc-desc{font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
+.svc-chips{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.chip{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.6rem;letter-spacing:0.08em;
+  padding:.25rem .6rem;
+  border:1px solid var(--border2);
+  border-radius:20px;color:var(--teal);
+}
+
+/* ── TURNITIN SECTION ── */
+#turnitin{
+  padding:5rem;
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.turnitin-inner{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+}
+.turnitin-badge{
+  position:relative;
+}
+.turnitin-gfx{
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:6px;
+  padding:2.5rem;
+  position:relative;overflow:hidden;
+}
+.turnitin-gfx::before{
+  content:'';position:absolute;
+  top:-50px;right:-50px;
+  width:200px;height:200px;
+  background:radial-gradient(circle,rgba(56,189,248,0.15),transparent 70%);
+}
+.tii-logo{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.2em;
+  color:var(--teal);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.tii-logo::before{
+  content:'';width:8px;height:8px;
+  background:var(--lime);border-radius:50%;
+  animation:blink 1.5s infinite;
+}
+.tii-score-ring{
+  width:140px;height:140px;
+  border-radius:50%;
+  border:4px solid var(--lime);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  margin:0 auto 1.5rem;
+  position:relative;
+  background:rgba(163,230,53,0.05);
+}
+.tii-score-ring::before{
+  content:'';position:absolute;
+  inset:-8px;border-radius:50%;
+  border:1px solid rgba(163,230,53,0.2);
+}
+.tii-pct{
+  font-family:'Syne',sans-serif;
+  font-size:2.5rem;font-weight:800;color:var(--lime);
+}
+.tii-pct-label{font-size:0.7rem;color:var(--muted);margin-top:-0.3rem;}
+.tii-checks{display:flex;flex-direction:column;gap:0.8rem;}
+.tii-check{
+  display:flex;align-items:center;gap:0.8rem;
+  font-size:0.85rem;color:rgba(240,246,255,0.7);
+}
+.tii-check-dot{
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.65rem;flex-shrink:0;
+}
+.dot-pass{background:rgba(163,230,53,0.15);color:var(--lime);border:1px solid var(--lime);}
+.dot-ai{background:rgba(56,189,248,0.1);color:var(--teal);border:1px solid var(--teal);}
+
+.turnitin-content{}
+.pricing-cards{display:flex;flex-direction:column;gap:1.2rem;margin-top:2rem;}
+.price-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:4px;padding:1.8rem 2rem;
+  position:relative;overflow:hidden;
+  transition:border-color .25s;
+}
+.price-card:hover{border-color:var(--border2);}
+.price-card.featured{
+  border-color:var(--lime);
+  background:rgba(163,230,53,0.04);
+}
+.price-card.featured::before{
+  content:'INCLUDED FREE';
+  position:absolute;top:1rem;right:1rem;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.15em;
+  background:var(--lime);color:var(--bg);
+  padding:0.2rem 0.6rem;border-radius:20px;font-weight:700;
+}
+.price-card-top{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1rem;
+}
+.price-card-name{
+  font-family:'Syne',sans-serif;
+  font-size:1.05rem;font-weight:700;color:var(--white);
+}
+.price-amount{
+  font-family:'Syne',sans-serif;
+  font-size:1.5rem;font-weight:800;
+}
+.price-free{color:var(--lime);}
+.price-paid{color:var(--amber);}
+.price-card-desc{font-size:0.88rem;color:var(--muted);line-height:1.65;}
+.price-card-list{
+  margin-top:1rem;display:flex;flex-direction:column;gap:0.4rem;
+}
+.pcl-item{
+  display:flex;align-items:center;gap:0.6rem;
+  font-size:0.82rem;color:rgba(240,246,255,0.7);
+}
+.pcl-item::before{content:'→';color:var(--teal);font-size:0.7rem;}
+
+/* ── SUBJECTS ── */
+#subjects{padding:7rem 5rem;background:var(--bg2);}
+.subjects-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:0.8rem;
+  margin-top:3rem;
+}
+.subj{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:3px;
+  padding:1.1rem 1rem;
+  display:flex;align-items:center;gap:0.7rem;
+  font-size:0.83rem;font-weight:400;
+  color:rgba(240,246,255,0.7);
+  transition:all .2s;
+  cursor:default;
+}
+.subj:hover{
+  border-color:var(--teal);
+  color:var(--white);
+  transform:translateY(-2px);
+  background:rgba(56,189,248,0.05);
+}
+.subj-icon{font-size:1.1rem;flex-shrink:0;}
+
+/* ── PROCESS ── */
+#process{padding:7rem 5rem;}
+.process-timeline{
+  position:relative;
+  margin-top:4rem;
+}
+.process-timeline::before{
+  content:'';
+  position:absolute;
+  left:28px;top:0;bottom:0;width:1px;
+  background:linear-gradient(180deg,var(--teal),transparent);
+}
+.process-step{
+  display:grid;
+  grid-template-columns:56px 1fr;
+  gap:2rem;
+  margin-bottom:3.5rem;
+  position:relative;
+}
+.step-circle{
+  width:56px;height:56px;
+  border-radius:50%;
+  border:1px solid var(--border2);
+  background:var(--surface);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.75rem;font-weight:500;color:var(--teal);
+  flex-shrink:0;
+  position:relative;z-index:2;
+  transition:background .3s,border-color .3s;
+}
+.process-step:hover .step-circle{
+  background:rgba(56,189,248,0.1);
+  border-color:var(--teal);
+}
+.step-body{padding-top:0.8rem;}
+.step-title{
+  font-family:'Syne',sans-serif;
+  font-size:1.1rem;font-weight:700;
+  color:var(--white);margin-bottom:0.5rem;
+}
+.step-desc{font-size:0.9rem;color:var(--muted);line-height:1.7;max-width:600px;}
+.step-note{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  margin-top:0.8rem;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.62rem;letter-spacing:0.1em;
+  color:var(--teal);
+  background:rgba(56,189,248,0.07);
+  border:1px solid var(--border);
+  padding:0.3rem 0.7rem;border-radius:20px;
+}
+
+/* ── TOOLS ── */
+#tools{
+  padding:5rem;
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+}
+.tools-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:4px;overflow:hidden;
+  margin-top:3rem;
+}
+.tool{
+  background:var(--bg);
+  padding:1.8rem 1rem;
+  text-align:center;
+  transition:background .2s;
+}
+.tool:hover{background:var(--surface);}
+.tool-icon{font-size:1.8rem;margin-bottom:0.6rem;}
+.tool-name{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.1em;
+  color:var(--muted);
+}
+
+/* ── TESTIMONIALS ── */
+#testimonials{padding:7rem 5rem;}
+.testi-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.2rem;margin-top:3rem;
+}
+.testi{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:4px;padding:2rem;
+  position:relative;overflow:hidden;
+  transition:border-color .25s,transform .25s;
+}
+.testi:hover{border-color:var(--border2);transform:translateY(-3px);}
+.testi::before{
+  content:'"';
+  position:absolute;top:-10px;right:1rem;
+  font-family:'Crimson Pro',serif;
+  font-size:8rem;color:rgba(56,189,248,0.05);
+  line-height:1;pointer-events:none;
+}
+.testi-stars{color:var(--amber);font-size:0.75rem;letter-spacing:0.15em;margin-bottom:1rem;}
+.testi-text{
+  font-size:0.95rem;font-style:italic;
+  color:rgba(240,246,255,0.7);
+  line-height:1.75;margin-bottom:1.5rem;
+}
+.testi-meta{display:flex;align-items:center;gap:0.8rem;}
+.testi-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--teal),var(--cyan));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:0.7rem;
+  font-weight:800;color:var(--bg);flex-shrink:0;
+}
+.testi-name{font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:700;color:var(--white);}
+.testi-role{font-size:0.72rem;color:var(--muted);}
+
+/* ── FAQ ── */
+#faq{
+  padding:7rem 5rem;
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+}
+.faq-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);border-radius:4px;
+  overflow:hidden;margin-top:3rem;
+}
+.faq-item{
+  background:var(--bg);
+  padding:2rem 2.2rem;cursor:pointer;
+  transition:background .2s;
+}
+.faq-item:hover{background:var(--surface);}
+.faq-q{
+  font-family:'Syne',sans-serif;
+  font-size:0.92rem;font-weight:700;
+  color:var(--white);margin-bottom:0.8rem;
+  display:flex;justify-content:space-between;align-items:start;gap:1rem;
+}
+.faq-icon{color:var(--teal);font-size:1.1rem;flex-shrink:0;margin-top:-0.1rem;}
+.faq-a{font-size:0.87rem;color:var(--muted);line-height:1.7;}
+
+/* ── CONTACT ── */
+#contact{padding:7rem 5rem;}
+.contact-grid{
+  display:grid;grid-template-columns:5fr 7fr;gap:4rem;
+  margin-top:3.5rem;align-items:start;
+}
+.contact-left{}
+.contact-channels{display:flex;flex-direction:column;gap:0.8rem;margin-top:2rem;}
+.channel{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.2rem 1.5rem;
+  border:1px solid var(--border);border-radius:3px;
+  background:var(--surface);
+  text-decoration:none;color:var(--white);
+  font-size:0.88rem;font-weight:500;
+  transition:border-color .2s,background .2s;
+}
+.channel:hover{border-color:var(--teal);background:rgba(56,189,248,0.05);}
+.channel-icon{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+  background:rgba(56,189,248,0.08);
+  border:1px solid var(--border2);
+}
+.channel-info{}
+.channel-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin-bottom:0.1rem;}
+.channel-val{font-size:0.88rem;color:var(--white);}
+
+.guarantee-box{
+  margin-top:2rem;
+  background:rgba(163,230,53,0.05);
+  border:1px solid rgba(163,230,53,0.2);
+  border-radius:4px;padding:1.5rem;
+}
+.guarantee-box-title{
+  font-family:'Syne',sans-serif;
+  font-size:0.78rem;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--lime);margin-bottom:0.8rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.guarantee-box p{font-size:0.85rem;color:var(--muted);line-height:1.65;}
+
+.contact-form{display:flex;flex-direction:column;gap:1rem;}
+.form-row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.fg{display:flex;flex-direction:column;gap:0.4rem;}
+.fg label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.6rem;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--muted);
+}
+.fg input,.fg select,.fg textarea{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:2px;
+  padding:.85rem 1rem;
+  font-family:'Crimson Pro',serif;
+  font-size:1rem;color:var(--white);
+  outline:none;
+  transition:border-color .2s;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--teal);}
+.fg select option{background:var(--bg3);}
+.fg textarea{resize:vertical;min-height:120px;}
+.form-urgency{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;
+}
+.urgency-btn{
+  padding:.6rem;border:1px solid var(--border);
+  border-radius:2px;background:transparent;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.62rem;letter-spacing:0.08em;
+  color:var(--muted);cursor:pointer;
+  transition:all .2s;
+}
+.urgency-btn:hover,.urgency-btn.active{
+  border-color:var(--teal);color:var(--teal);
+  background:rgba(56,189,248,0.07);
+}
+.submit-btn{
+  background:linear-gradient(135deg,var(--teal),var(--cyan));
+  color:var(--bg);border:none;
+  padding:1.1rem 2rem;
+  font-family:'Syne',sans-serif;
+  font-size:0.85rem;font-weight:800;letter-spacing:0.06em;
+  cursor:pointer;border-radius:2px;
+  transition:opacity .2s,transform .2s;margin-top:.5rem;
+}
+.submit-btn:hover{opacity:.88;transform:translateY(-2px);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  padding:3rem 5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1.5rem;
+  position:relative;z-index:1;
+}
+.footer-left{}
+.footer-brand{
+  font-family:'Syne',sans-serif;
+  font-size:1.1rem;font-weight:800;
+  color:var(--white);margin-bottom:0.3rem;
+}
+.footer-brand span{color:var(--teal);}
+.footer-sub{font-size:0.78rem;color:var(--muted);}
+.footer-center{
+  display:flex;gap:2rem;
+  flex-wrap:wrap;
+}
+.footer-center a{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  transition:color .2s;
+}
+.footer-center a:hover{color:var(--teal);}
+.footer-right{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.65rem;color:var(--muted2);
+  letter-spacing:0.08em;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%)}}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-d1{transition-delay:.1s;}
+.reveal-d2{transition-delay:.2s;}
+.reveal-d3{transition-delay:.3s;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  nav{padding:1rem 2rem;}
+  .nav-links{display:none;}
+  #hero{padding:8rem 2rem 4rem;}
+  .hero-body{grid-template-columns:1fr;}
+  section{padding:5rem 2rem !important;}
+  #about{grid-template-columns:1fr !important;}
+  .services-grid{grid-template-columns:1fr 1fr !important;}
+  .testi-grid{grid-template-columns:1fr !important;}
+  .faq-grid{grid-template-columns:1fr !important;}
+  .contact-grid{grid-template-columns:1fr !important;}
+  .turnitin-inner{grid-template-columns:1fr !important;}
+  .about-pillars{grid-template-columns:1fr 1fr !important;}
+  footer{flex-direction:column;text-align:center;padding:2rem;}
+}
+@media(max-width:600px){
+  .services-grid{grid-template-columns:1fr !important;}
+  .hero-stat-row{grid-template-columns:1fr 1fr !important;}
+  .form-row2{grid-template-columns:1fr !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- BACKGROUND ORBS -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    PROF.MIANO
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#turnitin">Turnitin</a></li>
+    <li><a href="#subjects">Subjects</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact" class="nav-cta-btn">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">
+    <div class="hero-eyebrow-line"></div>
+    <div class="hero-eyebrow-text">Academic Expert · Available 24 / 7 · 100% Confidential</div>
+  </div>
+
+  <div class="hero-headline">
+    <span>Your Grades,</span><br/>
+    <span class="line2">Guaranteed.</span>
+    <span class="line3">Expert Academic Help by Prof. Miano Njogu</span>
+  </div>
+
+  <div class="hero-body">
+    <div>
+      <p class="hero-desc">
+        From <strong>assignments and exams</strong> to <strong>full thesis supervision</strong> —
+        I provide expert, plagiarism-free academic assistance across
+        <em>every subject and every level</em>. Results delivered before your deadline,
+        every single time.
+      </p>
+      <div class="hero-cta-row" style="margin-top:2rem;">
+        <a href="#contact" class="btn-fill">Get Help Now →</a>
+        <a href="#services" class="btn-ghost">View Services</a>
+      </div>
+      <div class="hero-tags" style="margin-top:2rem;">
+        <div class="htag">Assignments</div>
+        <div class="htag">Exams</div>
+        <div class="htag">Thesis</div>
+        <div class="htag">Essays</div>
+        <div class="htag">Simulations</div>
+        <div class="htag">Free Turnitin</div>
+        <div class="htag">All Subjects</div>
+      </div>
+    </div>
+
+    <div class="hero-right-panel">
+      <div class="hero-stat-row">
+        <div class="hero-stat">
+          <div class="stat-big">2K+</div>
+          <div class="stat-label">Students Helped</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-big">98%</div>
+          <div class="stat-label">Success Rate</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-big">50+</div>
+          <div class="stat-label">Subjects</div>
+        </div>
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-stat">
+          <div class="stat-big" style="color:var(--lime);">FREE</div>
+          <div class="stat-label">Turnitin Check</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-big" style="color:var(--amber);">A+</div>
+          <div class="stat-label">Grade Target</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-big">24h</div>
+          <div class="stat-label">Min. Turnaround</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Assignments</div>
+    <div class="marquee-item">Exams & Tests</div>
+    <div class="marquee-item">Research Papers</div>
+    <div class="marquee-item">Thesis & Dissertations</div>
+    <div class="marquee-item">Simulations</div>
+    <div class="marquee-item">Free Turnitin Check</div>
+    <div class="marquee-item">AI Detection Report</div>
+    <div class="marquee-item">Data Analysis</div>
+    <div class="marquee-item">Case Studies</div>
+    <div class="marquee-item">Proofreading</div>
+    <div class="marquee-item">All Subjects</div>
+    <div class="marquee-item">100% Confidential</div>
+    <!-- duplicate for loop -->
+    <div class="marquee-item">Assignments</div>
+    <div class="marquee-item">Exams & Tests</div>
+    <div class="marquee-item">Research Papers</div>
+    <div class="marquee-item">Thesis & Dissertations</div>
+    <div class="marquee-item">Simulations</div>
+    <div class="marquee-item">Free Turnitin Check</div>
+    <div class="marquee-item">AI Detection Report</div>
+    <div class="marquee-item">Data Analysis</div>
+    <div class="marquee-item">Case Studies</div>
+    <div class="marquee-item">Proofreading</div>
+    <div class="marquee-item">All Subjects</div>
+    <div class="marquee-item">100% Confidential</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left reveal">
+    <div class="about-label">// about me</div>
+    <h2 class="about-title">Who Is<br/>Prof. Miano?</h2>
+    <div class="about-card">
+      <div class="about-card-title">Academic Credentials</div>
+      <p>Experienced academic consultant with a deep background in research, writing, and tutoring across undergraduate, postgraduate, and doctoral levels.</p>
+    </div>
+    <div class="about-card" style="margin-top:1rem;">
+      <div class="about-card-title">My Promise</div>
+      <p>Every assignment I handle is delivered on time, originality-verified, and crafted to meet the highest academic standards.</p>
+    </div>
+  </div>
+
+  <div class="about-right reveal">
+    <p class="about-para">
+      I'm <em>Prof. Miano Njogu</em> — a dedicated academic consultant with years of experience helping students navigate the pressures of modern education. Whether you're battling a midnight deadline, stuck on a complex simulation, or need your entire thesis structured from scratch, <strong>I'm the expert you need in your corner.</strong>
+    </p>
+    <p class="about-para">
+      My approach is simple: understand exactly what your institution expects, then deliver work that exceeds those standards. Every assignment I take on is thoroughly researched, properly cited, and written to sound authentically like an intelligent student — not a machine.
+    </p>
+    <p class="about-para">
+      I don't just complete your work. I <strong>guarantee the quality</strong> — with free Turnitin plagiarism and AI detection reports for every assignment I write, and a free-revision policy until you're 100% satisfied.
+    </p>
+
+    <div class="about-pillars">
+      <div class="pillar reveal reveal-d1">
+        <div class="pillar-icon">🎯</div>
+        <div class="pillar-name">Precision</div>
+        <div class="pillar-sub">Follows rubrics & marking guides exactly</div>
+      </div>
+      <div class="pillar reveal reveal-d2">
+        <div class="pillar-icon">⚡</div>
+        <div class="pillar-name">Speed</div>
+        <div class="pillar-sub">Urgent deadlines welcomed</div>
+      </div>
+      <div class="pillar reveal reveal-d3">
+        <div class="pillar-icon">🔒</div>
+        <div class="pillar-name">Discretion</div>
+        <div class="pillar-sub">Complete confidentiality guaranteed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="sec-header reveal">
+    <div>
+      <div class="sec-label">// what i do</div>
+      <h2 class="sec-title">Academic Services<br/>I Offer</h2>
+    </div>
+    <p class="sec-sub">A full-spectrum academic support system — every task, every subject, every level.</p>
+  </div>
+
+  <div class="services-grid reveal">
+
+    <div class="svc">
+      <div class="svc-num">01 —</div>
+      <div class="svc-icon">📝</div>
+      <div class="svc-name">Assignments & Homework</div>
+      <div class="svc-desc">Comprehensive, well-researched assignment solutions tailored to your course requirements, rubric, and institution's academic style. Includes proper in-text citations and a reference list in your preferred style.</div>
+      <div class="svc-chips">
+        <span class="chip">APA</span><span class="chip">MLA</span>
+        <span class="chip">Harvard</span><span class="chip">Chicago</span>
+        <span class="chip">All Levels</span>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-num">02 —</div>
+      <div class="svc-icon">📋</div>
+      <div class="svc-name">Exams & Online Tests</div>
+      <div class="svc-desc">Timed exam assistance, take-home exams, and online test support. I work with your exam portal directly or provide model answers you can adapt. Available for Blackboard, Canvas, Moodle, and more.</div>
+      <div class="svc-chips">
+        <span class="chip">Take-Home</span><span class="chip">Online Portals</span>
+        <span class="chip">MCQ</span><span class="chip">Essay Exams</span>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-num">03 —</div>
+      <div class="svc-icon">✍️</div>
+      <div class="svc-name">Essays & Research Papers</div>
+      <div class="svc-desc">From argumentative and analytical to reflective and comparative essays. I write with a distinctive, intelligent academic voice. All papers include an original thesis, structured body, and scholarly sources.</div>
+      <div class="svc-chips">
+        <span class="chip">Argumentative</span><span class="chip">Analytical</span>
+        <span class="chip">Reflective</span><span class="chip">Comparative</span>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-num">04 —</div>
+      <div class="svc-icon">🎓</div>
+      <div class="svc-name">Thesis & Dissertations</div>
+      <div class="svc-desc">Full thesis writing or chapter-by-chapter assistance. I cover every section — introduction, literature review, methodology, data analysis, findings, discussion, and conclusion. Suitable for undergraduate through PhD level.</div>
+      <div class="svc-chips">
+        <span class="chip">Undergrad</span><span class="chip">Masters</span>
+        <span class="chip">PhD</span><span class="chip">Literature Review</span>
+        <span class="chip">Methodology</span>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-num">05 —</div>
+      <div class="svc-icon">💻</div>
+      <div class="svc-name">Simulations & Technical Projects</div>
+      <div class="svc-desc">Engineering and science simulations, computational models, coding assignments, and lab reports. I work with MATLAB, Python, R, SPSS, STATA, AutoCAD, SolidWorks, and more. Results are documented and reproducible.</div>
+      <div class="svc-chips">
+        <span class="chip">MATLAB</span><span class="chip">Python</span>
+        <span class="chip">R / SPSS</span><span class="chip">Lab Reports</span>
+        <span class="chip">STATA</span>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-num">06 —</div>
+      <div class="svc-icon">📊</div>
+      <div class="svc-name">Data Analysis & Statistics</div>
+      <div class="svc-desc">Quantitative and qualitative data analysis, hypothesis testing, regression, ANOVA, factor analysis, survey analysis, and data visualization. I provide clear interpretation of results with charts and tables.</div>
+      <div class="svc-chips">
+        <span class="chip">Regression</span><span class="chip">ANOVA</span>
+        <span class="chip">Hypothesis Testing</span><span class="chip">SPSS</span>
+        <span class="chip">Excel</span>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-num">07 —</div>
+      <div class="svc-icon">💼</div>
+      <div class="svc-name">Case Studies & Reports</div>
+      <div class="svc-desc">Business, law, medical, nursing, and engineering case studies. In-depth analysis with strategic recommendations. I follow standard case study frameworks (SWOT, PESTLE, Porter's 5 Forces, etc.) where required.</div>
+      <div class="svc-chips">
+        <span class="chip">Business</span><span class="chip">Law</span>
+        <span class="chip">Medical</span><span class="chip">SWOT</span>
+        <span class="chip">PESTLE</span>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-num">08 —</div>
+      <div class="svc-icon">🔍</div>
+      <div class="svc-name">Proofreading & Editing</div>
+      <div class="svc-desc">Grammar, spelling, clarity, sentence structure, academic tone, and flow correction. I also check for logical consistency, argument strength, and formatting compliance. Turnitin reports available on request.</div>
+      <div class="svc-chips">
+        <span class="chip">Grammar</span><span class="chip">Academic Tone</span>
+        <span class="chip">Formatting</span><span class="chip">Turnitin Safe</span>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-num">09 —</div>
+      <div class="svc-icon">📐</div>
+      <div class="svc-name">Presentations & Proposals</div>
+      <div class="svc-desc">Research proposals, project outlines, PowerPoint presentations, literature surveys, and annotated bibliographies. Visual and well-structured to impress lecturers and supervisors.</div>
+      <div class="svc-chips">
+        <span class="chip">PowerPoint</span><span class="chip">Proposals</span>
+        <span class="chip">Annotated Bibliography</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TURNITIN -->
+<section id="turnitin">
+  <div class="turnitin-inner">
+    <div class="turnitin-badge reveal">
+      <div class="sec-label">// originality reports</div>
+      <h2 class="sec-title" style="font-size:clamp(1.6rem,2.8vw,2.6rem);margin-bottom:2rem;">Turnitin &<br/>AI Detection</h2>
+      <div class="turnitin-gfx">
+        <div class="tii-logo">TURNITIN REPORT LIVE</div>
+        <div class="tii-score-ring">
+          <div class="tii-pct">0%</div>
+          <div class="tii-pct-label">Similarity</div>
+        </div>
+        <div class="tii-checks">
+          <div class="tii-check">
+            <div class="tii-check-dot dot-pass">✓</div>
+            Plagiarism Check — Passed
+          </div>
+          <div class="tii-check">
+            <div class="tii-check-dot dot-ai">✓</div>
+            AI Writing Detection — Clear
+          </div>
+          <div class="tii-check">
+            <div class="tii-check-dot dot-pass">✓</div>
+            Grammar & Originality — Verified
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="turnitin-content reveal">
+      <div class="sec-label">// plagiarism & AI policy</div>
+      <h3 style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;margin-bottom:1rem;">Full Transparency.<br/>Zero Plagiarism.</h3>
+      <p style="font-size:0.95rem;color:var(--muted);line-height:1.75;margin-bottom:0.5rem;">
+        I believe you deserve to submit your work with complete confidence. That's why every assignment I complete comes with a full Turnitin Similarity Report — checking for both <strong style="color:var(--white);">plagiarism</strong> and <strong style="color:var(--white);">AI-generated content</strong> at no extra cost.
+      </p>
+      <p style="font-size:0.95rem;color:var(--muted);line-height:1.75;margin-bottom:2rem;">
+        For documents you've written yourself and just want checked, I offer a standalone Turnitin verification service at a flat fee.
+      </p>
+
+      <div class="pricing-cards">
+        <div class="price-card featured">
+          <div class="price-card-top">
+            <div class="price-card-name">📄 Assignments Done by Me</div>
+            <div class="price-amount price-free">FREE</div>
+          </div>
+          <div class="price-card-desc">
+            Every assignment, essay, thesis, or paper I write for you automatically comes with a complimentary Turnitin Similarity Report covering both plagiarism and AI writing detection.
+          </div>
+          <div class="price-card-list">
+            <div class="pcl-item">Turnitin Plagiarism Similarity Report included</div>
+            <div class="pcl-item">AI writing detection report included</div>
+            <div class="pcl-item">No extra charge whatsoever</div>
+            <div class="pcl-item">Report sent alongside completed work</div>
+          </div>
+        </div>
+
+        <div class="price-card">
+          <div class="price-card-top">
+            <div class="price-card-name">🔍 Your Own Work / External Documents</div>
+            <div class="price-amount price-paid">$10</div>
+          </div>
+          <div class="price-card-desc">
+            Have a document you wrote yourself and want to verify before submission? I run a full Turnitin check — plagiarism + AI detection — and send you the official report within a few hours.
+          </div>
+          <div class="price-card-list">
+            <div class="pcl-item">Works not written by me</div>
+            <div class="pcl-item">Your drafts, friends' papers, or any external document</div>
+            <div class="pcl-item">Official Turnitin PDF report delivered</div>
+            <div class="pcl-item">Flat fee of $10 per document</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section id="subjects">
+  <div class="sec-header reveal">
+    <div>
+      <div class="sec-label">// disciplines covered</div>
+      <h2 class="sec-title">Subjects &<br/>Courses I Cover</h2>
+    </div>
+    <p class="sec-sub">If your university teaches it, I can handle it. Here is a broad look at the disciplines I work across daily.</p>
+  </div>
+
+  <div class="subjects-grid reveal">
+    <div class="subj"><span class="subj-icon">🧮</span>Mathematics</div>
+    <div class="subj"><span class="subj-icon">📊</span>Statistics</div>
+    <div class="subj"><span class="subj-icon">⚗️</span>Chemistry</div>
+    <div class="subj"><span class="subj-icon">🔬</span>Biology</div>
+    <div class="subj"><span class="subj-icon">⚡</span>Physics</div>
+    <div class="subj"><span class="subj-icon">💰</span>Economics</div>
+    <div class="subj"><span class="subj-icon">💼</span>Business Admin</div>
+    <div class="subj"><span class="subj-icon">📈</span>Finance</div>
+    <div class="subj"><span class="subj-icon">🧾</span>Accounting</div>
+    <div class="subj"><span class="subj-icon">⚙️</span>Engineering</div>
+    <div class="subj"><span class="subj-icon">💻</span>Computer Science</div>
+    <div class="subj"><span class="subj-icon">🏥</span>Nursing</div>
+    <div class="subj"><span class="subj-icon">🩺</span>Medicine</div>
+    <div class="subj"><span class="subj-icon">⚖️</span>Law & Legal Studies</div>
+    <div class="subj"><span class="subj-icon">🧠</span>Psychology</div>
+    <div class="subj"><span class="subj-icon">🌍</span>Geography</div>
+    <div class="subj"><span class="subj-icon">📖</span>History</div>
+    <div class="subj"><span class="subj-icon">🗣️</span>English & Literature</div>
+    <div class="subj"><span class="subj-icon">🎭</span>Sociology</div>
+    <div class="subj"><span class="subj-icon">🌿</span>Environmental Science</div>
+    <div class="subj"><span class="subj-icon">🏗️</span>Architecture</div>
+    <div class="subj"><span class="subj-icon">📡</span>Information Technology</div>
+    <div class="subj"><span class="subj-icon">🧬</span>Biochemistry</div>
+    <div class="subj"><span class="subj-icon">🛢️</span>Petroleum Engineering</div>
+    <div class="subj"><span class="subj-icon">✈️</span>Aviation Studies</div>
+    <div class="subj"><span class="subj-icon">🏦</span>Banking & Insurance</div>
+    <div class="subj"><span class="subj-icon">📣</span>Marketing</div>
+    <div class="subj"><span class="subj-icon">🤝</span>Human Resources</div>
+    <div class="subj"><span class="subj-icon">🌐</span>International Relations</div>
+    <div class="subj"><span class="subj-icon">📰</span>Journalism & Media</div>
+    <div class="subj"><span class="subj-icon">🧪</span>Microbiology</div>
+    <div class="subj"><span class="subj-icon">🏛️</span>Political Science</div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="sec-header reveal">
+    <div>
+      <div class="sec-label">// how it works</div>
+      <h2 class="sec-title">From Order to<br/>Delivery — Simple.</h2>
+    </div>
+    <p class="sec-sub">No complicated sign-ups. No waiting around. Just send me your details and I'll take it from there.</p>
+  </div>
+
+  <div class="process-timeline">
+    <div class="process-step reveal">
+      <div class="step-circle">01</div>
+      <div class="step-body">
+        <div class="step-title">Send Your Task Details</div>
+        <div class="step-desc">Contact me via WhatsApp, email, or the form below. Share your assignment instructions, rubric, course name, word count, deadline, and any marking criteria your lecturer provided. The more detail, the better the outcome.</div>
+        <span class="step-note">⚡ I respond within minutes</span>
+      </div>
+    </div>
+
+    <div class="process-step reveal">
+      <div class="step-circle">02</div>
+      <div class="step-body">
+        <div class="step-title">Receive a Quote & Confirm</div>
+        <div class="step-desc">I'll review your task and send back a clear, fair price and turnaround estimate. No hidden fees. Once you're happy, we confirm and I get started immediately. Urgent same-day orders are welcome.</div>
+        <span class="step-note">💬 Transparent pricing, no surprises</span>
+      </div>
+    </div>
+
+    <div class="process-step reveal">
+      <div class="step-circle">03</div>
+      <div class="step-body">
+        <div class="step-title">I Research, Write & Verify</div>
+        <div class="step-desc">I conduct in-depth research using academic databases and credible sources, write your assignment from scratch, and verify it against Turnitin for both plagiarism and AI detection before I send it to you.</div>
+        <span class="step-note">📚 Written from scratch · Turnitin verified</span>
+      </div>
+    </div>
+
+    <div class="process-step reveal">
+      <div class="step-circle">04</div>
+      <div class="step-body">
+        <div class="step-title">Delivery — Before Your Deadline</div>
+        <div class="step-desc">You receive the completed work along with the Turnitin report, well before your submission deadline. If anything needs adjustment, I offer free revisions until you are completely satisfied with the result.</div>
+        <span class="step-note">✅ Free revisions included</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="reveal">
+    <div class="sec-label">// tools & software</div>
+    <h2 class="sec-title" style="font-size:clamp(1.6rem,2.5vw,2.2rem);margin-bottom:0;">Software & Tools I Use</h2>
+  </div>
+  <div class="tools-grid reveal">
+    <div class="tool"><div class="tool-icon">🐍</div><div class="tool-name">Python</div></div>
+    <div class="tool"><div class="tool-icon">📐</div><div class="tool-name">MATLAB</div></div>
+    <div class="tool"><div class="tool-icon">📉</div><div class="tool-name">SPSS</div></div>
+    <div class="tool"><div class="tool-icon">📊</div><div class="tool-name">STATA</div></div>
+    <div class="tool"><div class="tool-icon">🔢</div><div class="tool-name">R Studio</div></div>
+    <div class="tool"><div class="tool-icon">📋</div><div class="tool-name">Excel</div></div>
+    <div class="tool"><div class="tool-icon">📝</div><div class="tool-name">LaTeX</div></div>
+    <div class="tool"><div class="tool-icon">🏗️</div><div class="tool-name">AutoCAD</div></div>
+    <div class="tool"><div class="tool-icon">⚙️</div><div class="tool-name">SolidWorks</div></div>
+    <div class="tool"><div class="tool-icon">🗄️</div><div class="tool-name">SQL</div></div>
+    <div class="tool"><div class="tool-icon">📑</div><div class="tool-name">Turnitin</div></div>
+    <div class="tool"><div class="tool-icon">🌐</div><div class="tool-name">NVivo</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="sec-header reveal">
+    <div>
+      <div class="sec-label">// student reviews</div>
+      <h2 class="sec-title">What Students<br/>Say About Me</h2>
+    </div>
+    <p class="sec-sub">Real feedback from real students I've helped across different universities and disciplines.</p>
+  </div>
+
+  <div class="testi-grid">
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"I was panicking the night before my dissertation submission. Prof. Miano pulled through with a flawless chapter 4 — data analysis perfectly done in SPSS with clear interpretation. My supervisor loved it."</p>
+      <div class="testi-meta">
+        <div class="testi-avatar">SK</div>
+        <div><div class="testi-name">Sarah K.</div><div class="testi-role">MBA · University of Nairobi</div></div>
+      </div>
+    </div>
+
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Got a Distinction on my research paper. The Turnitin report showed 0% similarity — I was honestly shocked. The writing quality was incredibly high and the references were all real and verifiable."</p>
+      <div class="testi-meta">
+        <div class="testi-avatar">DM</div>
+        <div><div class="testi-name">David M.</div><div class="testi-role">BSc Statistics · Kenyatta University</div></div>
+      </div>
+    </div>
+
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"My MATLAB simulation was delivered in 6 hours with full documentation and a working script. Prof. Miano even explained the code so I understood it. Will always come back for engineering work."</p>
+      <div class="testi-meta">
+        <div class="testi-avatar">AJ</div>
+        <div><div class="testi-name">Amina J.</div><div class="testi-role">BEng Mechanical · JKUAT</div></div>
+      </div>
+    </div>
+
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"I used the $10 Turnitin check service for my own essay and was glad I did — it caught some issues I hadn't noticed. Fast, professional, and the report was the real Turnitin one, not some fake tool."</p>
+      <div class="testi-meta">
+        <div class="testi-avatar">JO</div>
+        <div><div class="testi-name">James O.</div><div class="testi-role">LLB Law · Strathmore University</div></div>
+      </div>
+    </div>
+
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Prof. Miano wrote my entire nursing case study from scratch. It was so well-researched my lecturer actually used it as an example for the class. I was nervous but this experience was incredible."</p>
+      <div class="testi-meta">
+        <div class="testi-avatar">GN</div>
+        <div><div class="testi-name">Grace N.</div><div class="testi-role">BSc Nursing · Mount Kenya University</div></div>
+      </div>
+    </div>
+
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Responsive, reliable, and brilliant. I've used Prof. Miano for 6 assignments across two semesters and have never been disappointed. The quality is consistent and he always beats the deadline."</p>
+      <div class="testi-meta">
+        <div class="testi-avatar">BT</div>
+        <div><div class="testi-name">Brian T.</div><div class="testi-role">MSc Computer Science</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="sec-header reveal">
+    <div>
+      <div class="sec-label">// common questions</div>
+      <h2 class="sec-title">Frequently Asked<br/>Questions</h2>
+    </div>
+    <p class="sec-sub">Everything you need to know before we get started.</p>
+  </div>
+
+  <div class="faq-grid reveal">
+    <div class="faq-item">
+      <div class="faq-q">Is this 100% confidential? <span class="faq-icon">🔒</span></div>
+      <div class="faq-a">Absolutely. I never share, publish, or discuss any student's work or identity with anyone. All communication and deliverables are kept completely private. Your secret is safe with me.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How fast can you deliver? <span class="faq-icon">⚡</span></div>
+      <div class="faq-a">For short assignments, I can deliver within a few hours. For longer work like dissertations, timelines are discussed upfront. I always agree on a deadline before starting and I've never missed one.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What's included in the free Turnitin check? <span class="faq-icon">📄</span></div>
+      <div class="faq-a">Every assignment I complete for you includes a free Turnitin Similarity Report covering both plagiarism similarity and AI writing detection. This is the official Turnitin report — not a third-party imitation tool.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Why does the external Turnitin check cost $10? <span class="faq-icon">💳</span></div>
+      <div class="faq-a">Running a Turnitin check requires institutional access which has a cost. For work I've personally written, I absorb this cost as part of my service. For external documents I haven't written, the $10 fee covers the access cost and my time to process and deliver the official report.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What if I'm not happy with the work? <span class="faq-icon">🔁</span></div>
+      <div class="faq-a">I offer unlimited free revisions until you're 100% satisfied. Simply send me specific feedback on what needs to change and I'll fix it promptly. My goal is your satisfaction and your grade.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Do you handle urgent, last-minute work? <span class="faq-icon">🚨</span></div>
+      <div class="faq-a">Yes — I regularly handle urgent and same-day assignments. Just be upfront about your deadline and I'll tell you honestly whether I can deliver in time. Rush orders may carry a small urgency fee depending on complexity.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Can you match my writing style? <span class="faq-icon">✍️</span></div>
+      <div class="faq-a">Yes. If you provide a sample of your previous work or describe your usual writing style, I can match it closely so the assignment sounds authentically like you. This is especially useful for continuous assessments and dissertations.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How do I pay? <span class="faq-icon">💰</span></div>
+      <div class="faq-a">Payment methods are discussed directly and we find a method that works for both of us. I typically ask for a 50% deposit before starting and the remainder upon delivery. All transactions are secure and private.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-header reveal">
+    <div>
+      <div class="sec-label">// get in touch</div>
+      <h2 class="sec-title">Let's Get You<br/>That Grade.</h2>
+    </div>
+    <p class="sec-sub">Fill in the form or reach out directly. I reply within minutes.</p>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <h3 style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;color:var(--white);">Reach Me Directly</h3>
+      <p style="font-size:0.87rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;">WhatsApp is the fastest channel. For detailed briefs, email works great.</p>
+      <div class="contact-channels">
+        <a href="https://wa.me/254700000000" class="channel" target="_blank">
+          <div class="channel-icon">💬</div>
+          <div class="channel-info">
+            <div class="channel-label">WhatsApp (Fastest)</div>
+            <div class="channel-val">+254 700 000 000</div>
+          </div>
+        </a>
+        <a href="mailto:prof.miano@example.com" class="channel">
+          <div class="channel-icon">✉️</div>
+          <div class="channel-info">
+            <div class="channel-label">Email</div>
+            <div class="channel-val">prof.miano@example.com</div>
+          </div>
+        </a>
+        <a href="tel:+254700000000" class="channel">
+          <div class="channel-icon">📞</div>
+          <div class="channel-info">
+            <div class="channel-label">Phone / Call</div>
+            <div class="channel-val">+254 700 000 000</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="guarantee-box" style="margin-top:2rem;">
+        <div class="guarantee-box-title">🛡️ My Guarantees</div>
+        <p>✔ 100% original work from scratch<br/>
+           ✔ Free Turnitin + AI report on all my assignments<br/>
+           ✔ On-time delivery, always<br/>
+           ✔ Free unlimited revisions<br/>
+           ✔ Complete confidentiality</p>
+      </div>
+    </div>
+
+    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <div class="form-row2">
+        <div class="fg">
+          <label>Full Name</label>
+          <input type="text" placeholder="Your name" required/>
+        </div>
+        <div class="fg">
+          <label>Email / WhatsApp</label>
+          <input type="text" placeholder="Email or phone" required/>
+        </div>
+      </div>
+
+      <div class="fg">
+        <label>Service Required</label>
+        <select required>
+          <option value="">Select service…</option>
+          <option>Assignment / Homework</option>
+          <option>Exam / Online Test</option>
+          <option>Essay / Research Paper</option>
+          <option>Thesis / Dissertation</option>
+          <option>Simulation / Technical Project</option>
+          <option>Data Analysis / Statistics</option>
+          <option>Case Study / Report</option>
+          <option>Proofreading / Editing</option>
+          <option>Presentation / Proposal</option>
+          <option>Turnitin Check ($10 — My Own Work)</option>
+        </select>
+      </div>
+
+      <div class="form-row2">
+        <div class="fg">
+          <label>Subject / Course</label>
+          <input type="text" placeholder="e.g. Thermodynamics"/>
+        </div>
+        <div class="fg">
+          <label>Academic Level</label>
+          <select>
+            <option value="">Select level…</option>
+            <option>High School / Diploma</option>
+            <option>Undergraduate (Year 1–2)</option>
+            <option>Undergraduate (Year 3–4)</option>
+            <option>Masters / Postgraduate</option>
+            <option>PhD / Doctoral</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fg">
+        <label>Deadline</label>
+        <input type="datetime-local"/>
+      </div>
+
+      <div class="fg">
+        <label>Urgency</label>
+        <div class="form-urgency">
+          <button type="button" class="urgency-btn" onclick="setUrgency(this)">Not Urgent</button>
+          <button type="button" class="urgency-btn" onclick="setUrgency(this)">Need it Soon</button>
+          <button type="button" class="urgency-btn" onclick="setUrgency(this)">🚨 Urgent!</button>
+        </div>
+      </div>
+
+      <div class="fg">
+        <label>Task Description / Instructions</label>
+        <textarea placeholder="Paste your assignment question, rubric, instructions, or describe your task in detail. The more info, the better the work I deliver."></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">SEND MY REQUEST →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <div class="footer-brand">PROF.<span>MIANO</span> NJOGU</div>
+    <div class="footer-sub">Expert Academic Consultant · Available 24/7 · 100% Confidential</div>
+  </div>
+  <div class="footer-center">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#turnitin">Turnitin</a>
+    <a href="#subjects">Subjects</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-right">© 2026 Prof. Miano Njogu</div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=mx+'px';cursor.style.top=my+'px';
+});
+function animateRing(){
+  rx+=(mx-rx)*0.12;
+  ry+=(my-ry)*0.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a,button,.svc,.testi,.pillar,.subj').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cursor.style.width='16px';cursor.style.height='16px';
+    ring.style.width='52px';ring.style.height='52px';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cursor.style.width='10px';cursor.style.height='10px';
+    ring.style.width='36px';ring.style.height='36px';
+  });
+});
+
+// Scroll reveal
+const revealEls=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      const delay=e.target.classList.contains('reveal-d3')?300:
+                  e.target.classList.contains('reveal-d2')?200:
+                  e.target.classList.contains('reveal-d1')?100:0;
+      setTimeout(()=>e.target.classList.add('visible'),delay);
+    }
+  });
+},{threshold:0.08});
+revealEls.forEach(el=>obs.observe(el));
+
+// Urgency buttons
+function setUrgency(btn){
+  document.querySelectorAll('.urgency-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Form submit
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.submit-btn');
+  btn.textContent='✓ REQUEST SENT — I\'LL BE IN TOUCH SHORTLY!';
+  btn.style.background='var(--lime)';
+  btn.style.color='var(--bg)';
+  btn.disabled=true;
+}
+
+// Animate hero stats counting
+function animateCount(el,target,suffix=''){
+  let start=0;
+  const duration=1800;
+  const step=timestamp=>{
+    if(!start) start=timestamp;
+    const progress=Math.min((timestamp-start)/duration,1);
+    const eased=1-Math.pow(1-progress,3);
+    el.textContent=Math.floor(eased*target)+(progress<1?'':suffix);
+    if(progress<1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const statsObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const stats=e.target.querySelectorAll('.stat-big');
+      stats.forEach(s=>{
+        const txt=s.textContent;
+        if(txt.includes('2K')) animateCount(s,2000,'K+');
+        else if(txt.includes('98')) animateCount(s,98,'%');
+        else if(txt.includes('50')) animateCount(s,50,'+');
+      });
+      statsObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.hero-stat-row').forEach(el=>statsObs.observe(el));
+</script>
+</body>
+</html>
