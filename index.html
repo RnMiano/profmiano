@@ -1484,7 +1484,7 @@ footer{
       </div>
     </div>
 
-    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+    <form class="contact-form reveal" id="mainForm">
       <div class="form-row2">
         <div class="fg">
           <label>Full Name</label>
@@ -1549,8 +1549,26 @@ footer{
         <label>Task Description / Instructions</label>
         <textarea placeholder="Paste your assignment question, rubric, instructions, or describe your task in detail. The more info, the better the work I deliver."></textarea>
       </div>
+      <div class="fg">
+        <label>Attach Document / File (Optional)</label>
+        <div id="upload-area" style="
+          border:1px dashed rgba(56,189,248,0.35);
+          border-radius:3px;
+          padding:1.8rem 1rem;
+          text-align:center;
+          cursor:pointer;
+          background:rgba(56,189,248,0.03);
+          transition:border-color .2s;
+        ">
+          <div style="font-size:1.8rem;margin-bottom:0.5rem;">📎</div>
+          <div style="font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:700;color:var(--white);margin-bottom:0.3rem;">Tap to attach your file</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:0.08em;">PDF · DOCX · XLSX · JPG · PNG · ZIP · Any format · Max 2GB</div>
+        </div>
+        <input type="file" id="fileInput" accept="*/*" style="display:none;"/>
+        <div id="upload-status" style="display:none;margin-top:0.8rem;padding:0.9rem 1rem;border-radius:3px;font-size:0.82rem;font-family:'Syne',sans-serif;line-height:1.5;"></div>
+      </div>
 
-      <button type="submit" class="submit-btn">SEND MY REQUEST →</button>
+      <button type="button" class="submit-btn" id="submitBtn" onclick="submitForm()">SEND MY REQUEST →</button>
     </form>
   </div>
 </section>
@@ -1619,13 +1637,160 @@ function setUrgency(btn){
 }
 
 // Form submit
-function handleSubmit(e){
-  e.preventDefault();
-  const btn=e.target.querySelector('.submit-btn');
-  btn.textContent='✓ REQUEST SENT — I\'LL BE IN TOUCH SHORTLY!';
-  btn.style.background='var(--lime)';
-  btn.style.color='var(--bg)';
-  btn.disabled=true;
+// ── FILE UPLOAD AREA CLICK ──
+document.getElementById('upload-area').addEventListener('click', () => {
+  document.getElementById('fileInput').click();
+});
+
+document.getElementById('fileInput').addEventListener('change', function() {
+  const file = this.files[0];
+  const status = document.getElementById('upload-status');
+  if (file) {
+    const sizeMB = (file.size / 1024 / 1024).toFixed(1);
+    status.style.display = 'block';
+    status.style.background = 'rgba(56,189,248,0.08)';
+    status.style.border = '1px solid rgba(56,189,248,0.25)';
+    status.style.color = 'var(--teal)';
+    status.textContent = '📎 File selected: ' + file.name + ' (' + sizeMB + ' MB) — will upload on submit';
+  }
+});
+
+// ── UPLOAD FILE TO GOFILE ──
+async function uploadToGoFile(file) {
+  const status = document.getElementById('upload-status');
+
+  // Step 1: Get best available GoFile server
+  const serverRes = await fetch('https://api.gofile.io/getServer');
+  const serverData = await serverRes.json();
+  const server = serverData.data.server;
+
+  // Step 2: Upload file to that server
+  status.textContent = '⏳ Uploading file... please wait.';
+  status.style.color = 'var(--teal)';
+  status.style.background = 'rgba(56,189,248,0.08)';
+  status.style.border = '1px solid rgba(56,189,248,0.25)';
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const uploadRes = await fetch(`https://${server}.gofile.io/uploadFile`, {
+    method: 'POST',
+    body: formData
+  });
+
+  const uploadData = await uploadRes.json();
+
+  if (uploadData.status === 'ok') {
+    const fileLink = uploadData.data.downloadPage;
+    status.textContent = '✅ File uploaded successfully: ' + file.name;
+    status.style.background = 'rgba(163,230,53,0.06)';
+    status.style.border = '1px solid rgba(163,230,53,0.25)';
+    status.style.color = 'var(--lime)';
+    return fileLink;
+  } else {
+    throw new Error('GoFile upload failed');
+  }
+}
+
+// ── MAIN FORM SUBMIT ──
+async function submitForm() {
+  const btn = document.getElementById('submitBtn');
+  const form = document.getElementById('mainForm');
+  const status = document.getElementById('upload-status');
+  const fileInput = document.getElementById('fileInput');
+
+  // Basic validation
+  const name = form.querySelector('input[placeholder="Your name"]').value.trim();
+  const contact = form.querySelector('input[placeholder="Email or phone"]').value.trim();
+  const service = form.querySelectorAll('select')[0].value;
+
+  if (!name || !contact || !service) {
+    alert('Please fill in your name, contact, and service required.');
+    return;
+  }
+
+  btn.textContent = 'SENDING...';
+  btn.disabled = true;
+  btn.style.opacity = '0.7';
+
+  // Collect all form data
+  const level    = form.querySelectorAll('select')[1].value;
+  const subject  = form.querySelectorAll('input')[2].value;
+  const deadline = form.querySelectorAll('input')[3].value;
+  const urgency  = document.querySelector('.urgency-btn.active')?.textContent || 'Not specified';
+  const message  = form.querySelector('textarea').value;
+
+  // Upload file if one was selected
+  let fileLink = 'No file attached';
+  const file = fileInput.files[0];
+  if (file) {
+    try {
+      status.style.display = 'block';
+      fileLink = await uploadToGoFile(file);
+    } catch (err) {
+      status.style.display = 'block';
+      status.style.background = 'rgba(251,113,133,0.08)';
+      status.style.border = '1px solid rgba(251,113,133,0.3)';
+      status.style.color = 'var(--rose)';
+      status.textContent = '❌ File upload failed. Submitting form without attachment.';
+      fileLink = 'File upload failed';
+    }
+  }
+
+  // Build email body
+  const emailBody = `
+New Academic Help Request
+
+────────────────────────
+NAME:      ${name}
+CONTACT:   ${contact}
+────────────────────────
+SERVICE:   ${service}
+SUBJECT:   ${subject || 'Not specified'}
+LEVEL:     ${level || 'Not specified'}
+DEADLINE:  ${deadline || 'Not specified'}
+URGENCY:   ${urgency}
+────────────────────────
+MESSAGE:
+${message || 'No message provided'}
+
+────────────────────────
+ATTACHED FILE:
+${fileLink}
+────────────────────────
+  `.trim();
+
+  // Send via Web3Forms
+  const web3Res = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      access_key: 'f92509bf-d89b-419c-8785-e44ca17f7789',
+      subject: '🎓 New Request: ' + service + ' — ' + name,
+      from_name: name,
+      replyto: contact.includes('@') ? contact : '',
+      message: emailBody
+    })
+  });
+
+  const web3Data = await web3Res.json();
+
+  if (web3Data.success) {
+    btn.textContent = '✓ SENT! I\'LL BE IN TOUCH SHORTLY.';
+    btn.style.background = 'var(--lime)';
+    btn.style.color = 'var(--bg)';
+    btn.style.opacity = '1';
+    form.reset();
+    if(file) {
+      status.textContent = '✅ Form sent! File link included in email.';
+    }
+  } else {
+    btn.textContent = 'FAILED — TRY AGAIN';
+    btn.style.background = 'var(--rose)';
+    btn.style.color = 'var(--white)';
+    btn.style.opacity = '1';
+    btn.disabled = false;
+  }
 }
 
 // Animate hero stats counting
