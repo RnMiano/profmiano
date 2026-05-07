@@ -1656,40 +1656,41 @@ document.getElementById('fileInput').addEventListener('change', function() {
 });
 
 // ── UPLOAD FILE TO GOFILE ──
+// ── UPLOAD FILE TO FILEBIN ──
 async function uploadToGoFile(file) {
   const status = document.getElementById('upload-status');
 
-  // Step 1: Get best available GoFile server
-  const serverRes = await fetch('https://api.gofile.io/getServer');
-  const serverData = await serverRes.json();
-  const server = serverData.data.server;
-
-  // Step 2: Upload file to that server
-  status.textContent = '⏳ Uploading file... please wait.';
+  status.style.display = 'block';
+  status.textContent = '⏳ Uploading file... please wait, do not close this page.';
   status.style.color = 'var(--teal)';
   status.style.background = 'rgba(56,189,248,0.08)';
   status.style.border = '1px solid rgba(56,189,248,0.25)';
 
-  const formData = new FormData();
-  formData.append('file', file);
+  // Generate a unique bin ID using timestamp
+  const binId = 'profmiano-' + Date.now();
+  const fileName = file.name.replace(/\s+/g, '-');
 
-  const uploadRes = await fetch(`https://${server}.gofile.io/uploadFile`, {
+  const uploadRes = await fetch(`https://filebin.net/${binId}/${fileName}`, {
     method: 'POST',
-    body: formData
+    headers: {
+      'Content-Type': file.type || 'application/octet-stream',
+      'accept': 'application/json'
+    },
+    body: file
   });
 
-  const uploadData = await uploadRes.json();
-
-  if (uploadData.status === 'ok') {
-    const fileLink = uploadData.data.downloadPage;
-    status.textContent = '✅ File uploaded successfully: ' + file.name;
-    status.style.background = 'rgba(163,230,53,0.06)';
-    status.style.border = '1px solid rgba(163,230,53,0.25)';
-    status.style.color = 'var(--lime)';
-    return fileLink;
-  } else {
-    throw new Error('GoFile upload failed');
+  if (!uploadRes.ok) {
+    throw new Error('Filebin upload failed: ' + uploadRes.status);
   }
+
+  const fileLink = `https://filebin.net/${binId}`;
+
+  status.textContent = '✅ File uploaded: ' + file.name;
+  status.style.background = 'rgba(163,230,53,0.06)';
+  status.style.border = '1px solid rgba(163,230,53,0.25)';
+  status.style.color = 'var(--lime)';
+
+  return fileLink;
 }
 
 // ── MAIN FORM SUBMIT ──
@@ -1714,11 +1715,12 @@ async function submitForm() {
   btn.style.opacity = '0.7';
 
   // Collect all form data
-  const level    = form.querySelectorAll('select')[1].value;
-  const subject  = form.querySelectorAll('input')[2].value;
-  const deadline = form.querySelectorAll('input')[3].value;
+  const level    = form.querySelectorAll('select')[1]?.value || 'Not specified';
+  const subject  = form.querySelector('input[placeholder="e.g. Thermodynamics"]')?.value || 'Not specified';
+  const deadline = form.querySelector('input[type="datetime-local"]')?.value || 'Not specified';
   const urgency  = document.querySelector('.urgency-btn.active')?.textContent || 'Not specified';
   const message  = form.querySelector('textarea').value;
+
 
   // Upload file if one was selected
   let fileLink = 'No file attached';
